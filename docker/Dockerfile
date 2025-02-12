@@ -26,14 +26,14 @@ RUN wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz 
     tar -xzvf steamcmd.tar.gz -C /data/steamcmd && \
     cd /data/steamcmd
 
-## Generate en_US.UTF-8 locale required by steam incase missing
+## Generate en_US.UTF-8 locale required by steam in case it's missing
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales
 
 ## Update steam to prevent steamguard code timeout
 RUN /data/steamcmd/steamcmd.sh +quit
 
-## Don't set the arg earlier, if you need to rebuild the container
+## Don't set the arg earlier; if you need to rebuild the container
 ## it will cache up to here when you change the ENV VAR
 ARG STEAM_GUARD
 RUN chown -R 1000:1000 /data && \
@@ -72,34 +72,46 @@ RUN chmod +x /etc/services.d/utils/run
 COPY start.sh $GAME_PATH/start.sh
 RUN chmod +x $GAME_PATH/start.sh
 
-# Embed the entrypoint script directly as /startapp.sh
-RUN echo '#!/bin/bash\n\
-export HOME=/config\n\
-\n\
-for modPath in $GAME_PATH/Mods/*/; do\n\
-    mod=$(basename "$modPath")\n\
-    var="ENABLE_$(echo "${mod^^}" | tr -cd "[A-Z]")_MOD"\n\
-    if [ "${!var}" != "true" ]; then\n\
-        echo "Removing ${modPath} (${var}=${!var})"\n\
-        rm -rf "$modPath"\n\
-        continue\n\
-    fi\n\
-    if [ -f "${modPath}/config.json.template" ]; then\n\
-        echo "Configuring ${modPath}config.json"\n\
-        if [ "$(cat "${modPath}/config.json" 2> /dev/null)" == "" ]; then\n\
-            envsubst < "${modPath}/config.json.template" > "${modPath}/config.json"\n\
-        fi\n\
-    fi\n\
-done\n\
-\n\
-/opt/configure-remotecontrol-mod.sh\n\
-/opt/tail-smapi-log.sh &\n\
-\n\
-export XAUTHORITY=~/.Xauthority\n\
-\n\
-sed -i '\''s/env TERM=xterm $LAUNCHER "$@"/env SHELL=\/bin\/bash TERM=xterm xterm -e "\/bin\/bash -c $LAUNCHER \"$@\""/'\'' $GAME_PATH/Stardew\\ Valley\n\
-\n\
-bash -c "$GAME_PATH/start.sh"\n\
-sleep 233333333333333\n' > /startapp.sh && chmod +x /startapp.sh
+# Embed the entrypoint script directly as /startapp.sh using a here-document.
+RUN cat <<'EOF' > /startapp.sh
+#!/bin/bash
+export HOME=/config
 
-## Footer
+# Loop through each mod directory and configure it if enabled.
+for modPath in $GAME_PATH/Mods/*/; do
+    mod=$(basename "$modPath")
+    # Normalize mod name to uppercase and only alphabetic characters, e.g., "Always On Server" becomes ENABLE_ALWAYSONSERVER_MOD
+    var="ENABLE_$(echo "${mod^^}" | tr -cd "[A-Z]")_MOD"
+    # Remove the mod if it's not enabled
+    if [ "${!var}" != "true" ]; then
+        echo "Removing ${modPath} (${var}=${!var})"
+        rm -rf "$modPath"
+        continue
+    fi
+    if [ -f "${modPath}/config.json.template" ]; then
+        echo "Configuring ${modPath}config.json"
+        # Seed config.json only if not manually provided or empty.
+        if [ "$(cat "${modPath}/config.json" 2> /dev/null)" == "" ]; then
+            envsubst < "${modPath}/config.json.template" > "${modPath}/config.json"
+        fi
+    fi
+done
+
+# Run extra steps for certain mods.
+ /opt/configure-remotecontrol-mod.sh
+ /opt/tail-smapi-log.sh &
+
+# Ready to start!
+export XAUTHORITY=~/.Xauthority
+
+# Adjust command for starting Stardew Valley via xterm.
+sed -i 's/env TERM=xterm $LAUNCHER "$@"/env SHELL=\/bin\/bash TERM=xterm xterm -e "\/bin\/bash -c $LAUNCHER \"$@\""/' $GAME_PATH/Stardew\ Valley
+
+# Launch the game start script.
+bash -c "$GAME_PATH/start.sh"
+
+# Keep container running.
+sleep 233333333333333
+EOF
+
+RUN chmod +x /startapp.sh
