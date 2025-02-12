@@ -3,18 +3,20 @@ FROM jlesage/baseimage-gui:debian-11
 
 ARG STEAM_USER
 ARG STEAM_PASS
-
-# Steam appId
 ARG SRCDS_APPID
 
 # Set the name of the application.
 ENV APP_NAME="StardewValley"
+# Tell the base image where the app start script is.
+ENV APP_START_SCRIPT=/startapp.sh
 
 ## Uses a distinct PATH from Stardew/game/ that GOG has.
 ENV GAME_PATH="/data/Stardew/game"
 
 ## lib32gcc-s1 is required for steamcmd
-RUN apt-get update && apt-get install -y wget unzip tar strace mono-complete xterm gettext-base jq netcat procps lib32gcc-s1 locales && apt-get clean
+RUN apt-get update && apt-get install -y \
+      wget unzip tar strace mono-complete xterm gettext-base jq netcat procps lib32gcc-s1 locales \
+    && apt-get clean
 
 # Create required directories.
 RUN mkdir -p ${GAME_PATH} && \
@@ -26,14 +28,14 @@ RUN wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz 
     tar -xzvf steamcmd.tar.gz -C /data/steamcmd && \
     cd /data/steamcmd
 
-## Generate en_US.UTF-8 locale required by Steam (in case it's missing)
+## Generate en_US.UTF-8 locale required by Steam (if missing)
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales
 
-## Update Steam to prevent Steam Guard code timeout
+## Update Steam to prevent Steam Guard timeout.
 RUN /data/steamcmd/steamcmd.sh +quit
 
-## Avoid early ARG caching – these steps use environment variables.
+## Use these arguments without caching earlier steps.
 ARG STEAM_GUARD
 RUN chown -R 1000:1000 /data && \
     export HOME=/data && \
@@ -55,7 +57,7 @@ RUN wget --user-agent="Mozilla" https://github.com/Pathoschild/SMAPI/releases/do
     SMAPI_INSTALLER=$(find /data/nexus -name 'SMAPI*.*Installer' -type f -path "*/SMAPI * installer/internal/linux/*" | head -n 1) && \
     /bin/bash -c "SMAPI_NO_TERMINAL=true SMAPI_USE_CURRENT_SHELL=true echo -e '2\n\n' | \"$SMAPI_INSTALLER\" --install --game-path \"$GAME_PATH\"" || :
 
-# Add Mods & Scripts
+# Add Mods & Scripts.
 COPY ["mods/", "$GAME_PATH/Mods/"]
 COPY scripts/ /opt/
 
@@ -79,7 +81,7 @@ export HOME=/config
 # Loop through mod directories and configure them if enabled.
 for modPath in $GAME_PATH/Mods/*/; do
     mod=$(basename "$modPath")
-    # Normalize mod name: uppercase and only letters (e.g., "Always On Server" → ENABLE_ALWAYSONSERVER_MOD)
+    # Normalize mod name: uppercase letters only (e.g., "Always On Server" becomes ENABLE_ALWAYSONSERVER_MOD)
     var="ENABLE_$(echo "${mod^^}" | tr -cd "[A-Z]")_MOD"
     if [ "${!var}" != "true" ]; then
         echo "Removing ${modPath} (${var}=${!var})"
@@ -109,8 +111,7 @@ bash -c "$GAME_PATH/start.sh"
 sleep 233333333333333
 EOF
 
-# Make sure /startapp.sh is executable.
 RUN chmod +x /startapp.sh
 
-# Verify that /startapp.sh exists (this will output the file details during build).
+# Debug: Verify that /startapp.sh exists.
 RUN ls -la /startapp.sh
