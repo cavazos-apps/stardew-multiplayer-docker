@@ -16,7 +16,7 @@ ENV GAME_PATH="/data/Stardew/game"
 ## lib32gcc-s1 is required for steamcmd
 RUN apt-get update && apt-get install -y wget unzip tar strace mono-complete xterm gettext-base jq netcat procps lib32gcc-s1 locales && apt-get clean
 
-# Game + ModLoader 1.6.2 4.0.1
+# Create required directories.
 RUN mkdir -p ${GAME_PATH} && \
     mkdir -p /data/nexus && \
     mkdir -p /data/steamcmd
@@ -26,15 +26,14 @@ RUN wget https://steamcdn-a.akamaihd.net/client/installer/steamcmd_linux.tar.gz 
     tar -xzvf steamcmd.tar.gz -C /data/steamcmd && \
     cd /data/steamcmd
 
-## Generate en_US.UTF-8 locale required by steam in case it's missing
+## Generate en_US.UTF-8 locale required by Steam (in case it's missing)
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales
 
-## Update steam to prevent steamguard code timeout
+## Update Steam to prevent Steam Guard code timeout
 RUN /data/steamcmd/steamcmd.sh +quit
 
-## Don't set the arg earlier; if you need to rebuild the container
-## it will cache up to here when you change the ENV VAR
+## Avoid early ARG caching – these steps use environment variables.
 ARG STEAM_GUARD
 RUN chown -R 1000:1000 /data && \
     export HOME=/data && \
@@ -46,9 +45,9 @@ RUN mkdir -p /data/.steam/sdk32 && \
     cp -v /data/steamcmd/linux64/steamclient.so /data/.steam/sdk64/steamclient.so
 
 ## END STEAM VERSION
-RUN wget -qO dotnet.tar.gz https://download.visualstudio.microsoft.com/download/pr/d4b71fac-a2fd-4516-ac58-100fb09d796a/e79d6c2a8040b59bf49c0d167ae70a7b/dotnet-sdk-5.0.408-linux-arm64.tar.gz &&\
-    tar -zxf dotnet.tar.gz -C /usr/share/dotnet &&\
-    rm dotnet.tar.gz &&\
+RUN wget -qO dotnet.tar.gz https://download.visualstudio.microsoft.com/download/pr/d4b71fac-a2fd-4516-ac58-100fb09d796a/e79d6c2a8040b59bf49c0d167ae70a7b/dotnet-sdk-5.0.408-linux-arm64.tar.gz && \
+    tar -zxf dotnet.tar.gz -C /usr/share/dotnet && \
+    rm dotnet.tar.gz && \
     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
 RUN wget --user-agent="Mozilla" https://github.com/Pathoschild/SMAPI/releases/download/4.1.10/SMAPI-4.1.10-installer.zip -qO /data/nexus.zip && \
@@ -72,17 +71,16 @@ RUN chmod +x /etc/services.d/utils/run
 COPY start.sh $GAME_PATH/start.sh
 RUN chmod +x $GAME_PATH/start.sh
 
-# Embed the entrypoint script directly as /startapp.sh using a here-document.
+# Embed the entrypoint script as /startapp.sh using a here-document.
 RUN cat <<'EOF' > /startapp.sh
 #!/bin/bash
 export HOME=/config
 
-# Loop through each mod directory and configure it if enabled.
+# Loop through mod directories and configure them if enabled.
 for modPath in $GAME_PATH/Mods/*/; do
     mod=$(basename "$modPath")
-    # Normalize mod name to uppercase and only alphabetic characters, e.g., "Always On Server" becomes ENABLE_ALWAYSONSERVER_MOD
+    # Normalize mod name: uppercase and only letters (e.g., "Always On Server" → ENABLE_ALWAYSONSERVER_MOD)
     var="ENABLE_$(echo "${mod^^}" | tr -cd "[A-Z]")_MOD"
-    # Remove the mod if it's not enabled
     if [ "${!var}" != "true" ]; then
         echo "Removing ${modPath} (${var}=${!var})"
         rm -rf "$modPath"
@@ -90,7 +88,6 @@ for modPath in $GAME_PATH/Mods/*/; do
     fi
     if [ -f "${modPath}/config.json.template" ]; then
         echo "Configuring ${modPath}config.json"
-        # Seed config.json only if not manually provided or empty.
         if [ "$(cat "${modPath}/config.json" 2> /dev/null)" == "" ]; then
             envsubst < "${modPath}/config.json.template" > "${modPath}/config.json"
         fi
@@ -101,17 +98,19 @@ done
  /opt/configure-remotecontrol-mod.sh
  /opt/tail-smapi-log.sh &
 
-# Ready to start!
+# Set XAUTHORITY and adjust the launch command.
 export XAUTHORITY=~/.Xauthority
-
-# Adjust command for starting Stardew Valley via xterm.
 sed -i 's/env TERM=xterm $LAUNCHER "$@"/env SHELL=\/bin\/bash TERM=xterm xterm -e "\/bin\/bash -c $LAUNCHER \"$@\""/' $GAME_PATH/Stardew\ Valley
 
 # Launch the game start script.
 bash -c "$GAME_PATH/start.sh"
 
-# Keep container running.
+# Keep the container running.
 sleep 233333333333333
 EOF
 
+# Make sure /startapp.sh is executable.
 RUN chmod +x /startapp.sh
+
+# Verify that /startapp.sh exists (this will output the file details during build).
+RUN ls -la /startapp.sh
