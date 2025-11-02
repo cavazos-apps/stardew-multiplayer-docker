@@ -10,6 +10,50 @@ intellectual property law, this will no longer be the case. Users will now be re
 in an issue request and I will try to help.
 - Thanks printfuck for the base code.
 
+## Version Information
+
+- **Stardew Valley**: Compatible with version 1.6.15 (latest patch)
+- **SMAPI**: Version 4.1.10
+- Both Steam and GOG versions are supported
+
+## Custom Mods and Save Files
+
+This Docker setup now supports easy management of custom mods and save files through host directory mappings:
+
+### Save Files
+Your game saves are automatically stored in `./valley_saves` on your host machine. This allows you to:
+- Backup your saves easily
+- Transfer saves between different servers
+- Edit saves directly on your host
+
+### Custom Mods
+You can add your own SMAPI mods by creating a `custom_mods` directory:
+
+1. Create a `custom_mods` directory in the project root (or copy from `custom_mods_example`)
+2. Place each mod in its own subdirectory within `custom_mods/`
+3. Restart the container to load the new mods
+
+Example structure:
+```
+custom_mods/
+├── YourModName1/
+│   ├── manifest.json
+│   └── YourModName1.dll
+└── YourModName2/
+    ├── manifest.json
+    └── YourModName2.dll
+```
+
+See `custom_mods_example/README.md` for detailed instructions.
+
+### Full Data Access (Optional)
+If you need complete control over the Stardew Valley installation, you can uncomment the following line in your docker-compose file:
+```yaml
+# - ./stardew_data:/data/Stardew
+```
+
+This gives you full access to game files, all mods, and configurations from your host machine.
+
 <a href="https://www.buymeacoffee.com/norimicry" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 
