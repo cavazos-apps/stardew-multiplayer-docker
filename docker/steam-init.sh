@@ -18,23 +18,27 @@ if [ ! -f "${GAME_PATH}/StardewValley" ]; then
         exit 1
     fi
     
-    # Build Steam login command
-    STEAM_CMD="/data/steamcmd/steamcmd.sh +force_install_dir ${GAME_PATH} +login ${STEAM_USER} ${STEAM_PASS}"
-    
-    # Add Steam Guard if provided
-    if [ -n "$STEAM_GUARD" ]; then
-        STEAM_CMD="${STEAM_CMD} ${STEAM_GUARD}"
-    fi
-    
-    # Complete the command
-    STEAM_CMD="${STEAM_CMD} +app_update ${SRCDS_APPID} validate +quit"
-    
     echo "Downloading Stardew Valley from Steam..."
     export HOME=/data
     chown -R 1000:1000 /data
     
-    # Execute Steam download
-    if eval "$STEAM_CMD"; then
+    # Execute Steam download using array to avoid command injection
+    STEAM_CMD_ARGS=(
+        "+force_install_dir" "${GAME_PATH}"
+        "+login" "${STEAM_USER}" "${STEAM_PASS}"
+    )
+    
+    # Add Steam Guard if provided
+    if [ -n "$STEAM_GUARD" ]; then
+        STEAM_CMD_ARGS+=("${STEAM_GUARD}")
+    fi
+    
+    STEAM_CMD_ARGS+=(
+        "+app_update" "${SRCDS_APPID}" "validate"
+        "+quit"
+    )
+    
+    if /data/steamcmd/steamcmd.sh "${STEAM_CMD_ARGS[@]}"; then
         echo "Steam download completed successfully!"
         
         # Copy Steam client libraries
@@ -67,7 +71,7 @@ if [ ! -f "${GAME_PATH}/StardewValley" ]; then
         # Set permissions
         echo "Setting permissions..."
         chmod +x "${GAME_PATH}/StardewValley" 2>/dev/null || true
-        chmod -R 777 "${GAME_PATH}"
+        chmod -R 775 "${GAME_PATH}"
         chown -R 1000:1000 /data/Stardew
         
         echo "Game initialization completed!"
