@@ -1,6 +1,10 @@
 #!/bin/bash
 export HOME=/config
 
+# Initialize Steam game download if needed
+echo "Running Steam initialization..."
+/opt/steam-init.sh
+
 for modPath in $GAME_PATH/Mods/*/
 do
   mod=$(basename "$modPath")

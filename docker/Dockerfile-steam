@@ -1,10 +1,8 @@
 # Pull base image.
 FROM jlesage/baseimage-gui:debian-11
 
-ARG STEAM_USER
-ARG STEAM_PASS
-# Steam appId
-ARG SRCDS_APPID
+# Steam appId - can be overridden at runtime
+ENV SRCDS_APPID=413150
 
 # Set the name of the application.
 ENV APP_NAME="StardewValley"
@@ -32,18 +30,9 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 ## Update steam to prevent steamguard code timeout
 RUN /data/steamcmd/steamcmd.sh +quit
 
-## Don't set the arg earlier, if you need to rebuild the container
-## it will cache up to here when you change the ENV VAR
-ARG STEAM_GUARD
-
+## Set up permissions and directories for runtime Steam download
 RUN chown -R 1000:1000 /data && \
-    export HOME=/data && \
-    /data/steamcmd/steamcmd.sh +force_install_dir ${GAME_PATH} +login ${STEAM_USER} ${STEAM_PASS} ${STEAM_GUARD} +app_update ${SRCDS_APPID} validate +quit
-
-RUN mkdir -p /data/.steam/sdk32 && \
-    cp -v /data/steamcmd/linux32/steamclient.so /data/.steam/sdk32/steamclient.so && \
-    mkdir -p /data/.steam/sdk64 && \
-    cp -v /data/steamcmd/linux64/steamclient.so /data/.steam/sdk64/steamclient.so
+    mkdir -p /data/.steam/sdk32 /data/.steam/sdk64
 ## END STEAM VERSION
 
 RUN wget -qO dotnet.tar.gz https://download.visualstudio.microsoft.com/download/pr/d4b71fac-a2fd-4516-ac58-100fb09d796a/e79d6c2a8040b59bf49c0d167ae70a7b/dotnet-sdk-5.0.408-linux-arm64.tar.gz &&\
@@ -51,17 +40,15 @@ RUN wget -qO dotnet.tar.gz https://download.visualstudio.microsoft.com/download/
      rm dotnet.tar.gz &&\
      ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
+# Download SMAPI installer for runtime installation
 RUN wget --user-agent="Mozilla" https://github.com/Pathoschild/SMAPI/releases/download/4.1.10/SMAPI-4.1.10-installer.zip -qO /data/nexus.zip && \
-    unzip /data/nexus.zip -d /data/nexus/ && \
-    SMAPI_INSTALLER=$(find /data/nexus -name 'SMAPI*.*Installer' -type f -path "*/SMAPI * installer/internal/linux/*" | head -n 1) && \
-    /bin/bash -c "SMAPI_NO_TERMINAL=true SMAPI_USE_CURRENT_SHELL=true echo -e '2\n\n' | \"$SMAPI_INSTALLER\" --install --game-path \"$GAME_PATH\"" || :
+    unzip /data/nexus.zip -d /data/nexus/
 
-# Add Mods & Scripts
-COPY ["mods/", "$GAME_PATH/Mods/"]
+# Add Mods & Scripts (stored as templates for runtime deployment)
+COPY ["mods/", "/data/Stardew/mods_template/"]
 COPY scripts/ /opt/
 
-RUN chmod +x $GAME_PATH/StardewValley && \
-    chmod -R 777 $GAME_PATH && \
+RUN chmod -R 777 /data/Stardew && \
     chown -R 1000:1000 /data/Stardew && \
     chmod +x /opt/*.sh
 
@@ -69,7 +56,9 @@ RUN mkdir /etc/services.d/utils && touch /etc/services.d/app/utils.dep
 COPY run /etc/services.d/utils/run 
 RUN chmod +x /etc/services.d/utils/run 
 
-COPY start.sh $GAME_PATH/start.sh
-RUN chmod +x $GAME_PATH/start.sh
+COPY start.sh /data/Stardew/start.sh.template
+RUN chmod +x /data/Stardew/start.sh.template
+COPY steam-init.sh /opt/steam-init.sh
+RUN chmod +x /opt/steam-init.sh
 COPY docker-entrypoint-steam.sh /startapp.sh
 RUN chmod +x /startapp.sh
