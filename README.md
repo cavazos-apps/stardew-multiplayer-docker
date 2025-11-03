@@ -61,34 +61,38 @@ This gives you full access to game files, all mods, and configurations from your
 
 ### Steam
 
-This image will download the game from Steam server using [steamcmd](https://developer.valvesoftware.com/wiki/SteamCMD) if you own the game. For that, it requires your Steam login.
+The Steam version now supports two deployment modes:
 
-The credential variables are required only during building, not during game runtime.
+#### Runtime Authentication (Recommended for Kubernetes/Production)
 
-```
-## Set these variables only during the first build or during updates
+The image can be built without Steam credentials, and the game will be downloaded at container startup. This is ideal for Kubernetes deployments where you want to store credentials in secrets.
+
+```bash
+# Build the image (no credentials needed)
+docker compose -f docker-compose-steam.yml build
+
+# Set credentials as environment variables for runtime
 export STEAM_USER=<steamUsername>
 export STEAM_PASS=<steamPassword>
-export STEAM_GUARD=<lastesSteamGuardCode> # If you account is not protected, don't set
+export STEAM_GUARD=<latestSteamGuardCode> # Optional if Steam Guard is disabled
 
+# Start the container (game downloads on first start)
 docker compose -f docker-compose-steam.yml up
 ```
 
+**Important**: The game files are downloaded to `./stardew_game` volume on first start. This directory will be reused on subsequent starts to avoid re-downloading.
+
+For Kubernetes deployment instructions, see [KUBERNETES.md](KUBERNETES.md).
+
+#### Build-time Authentication (Legacy)
+
+You can still use the old method if preferred. See the git history for previous documentation.
+
 #### Steam Guard
 
-If your account is protected by Steam Guard, the build is a little time sensitive. You must open your app and
-export the current Steam Guard to `STEAM_GUARD` environment variable code right before building.
+If your account is protected by Steam Guard and you cannot disable it, you need to provide a current Steam Guard code via the `STEAM_GUARD` environment variable.
 
-**Note: the code lasts a little longer than shown but not much.**
-
-After starting build, pay attention to your app. Even with the code, it will request for authorization which must be granted.
-
-If the build fails or when you want to update with `docker compose -f docker-compose-steam.yml build --no-cache`, you should set the newer `STEAM_GUARD` again.
-
-```
-## Remove env variables after build
-unset STEAM_USER STEAM_PASS STEAM_GUARD
-```
+**Note**: Disabling Steam Guard on a dedicated server account is recommended for automated deployments.
 ### GOG
 
 To my knowledge there is no way to automate this. To use game files from GOG, you will need to download the Linux installer. 
