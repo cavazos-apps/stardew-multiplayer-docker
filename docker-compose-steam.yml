@@ -5,17 +5,14 @@ services:
     build:
       context: docker
       dockerfile: Dockerfile-steam
-      args:
-        ## Recommended: set as env_variable during build
-        STEAM_USER: ${STEAM_USER}
-        ## Recommended: set as env_variable during build
-        STEAM_PASS: ${STEAM_PASS}
-        ## Recommended: set as env_variable during build
-        STEAM_GUARD: ${STEAM_GUARD}
-        ## Stardew steamId
-        SRCDS_APPID: 413150
     container_name: stardew
     environment:
+      # Steam credentials for runtime game download (required on first start)
+      - STEAM_USER=${STEAM_USER}
+      - STEAM_PASS=${STEAM_PASS}
+      - STEAM_GUARD=${STEAM_GUARD:-}
+      - SRCDS_APPID=413150
+      
       # VNC
       - VNC_PASSWORD=insecure
       - DISPLAY_HEIGHT=900
@@ -136,6 +133,9 @@ services:
       # Game  
       - 24642:24642/udp
     volumes:
+      # Game files - persisted to host to avoid re-downloading
+      # This volume should be mounted in Kubernetes manifest
+      - ./stardew_game:/data/Stardew/game
       # Saves go here now
       - ./valley_saves:/config/xdg/config/StardewValley/Saves
       # If you'd like to set an existing savegame before the first start otherwise this file will be edited when starting the first game
