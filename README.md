@@ -13,7 +13,7 @@ in an issue request and I will try to help.
 ## Version Information
 
 - **Stardew Valley**: Compatible with version 1.6.15 (latest patch)
-- **SMAPI**: Version 4.1.10
+- **SMAPI**: Version 4.3.2
 - Both Steam and GOG versions are supported
 
 ## Custom Mods and Save Files
