@@ -12,7 +12,7 @@ ENV GAME_PATH="/data/Stardew/game"
 ## lib32gcc-s1 is required for steamcmd
 RUN apt-get update && apt-get install -y wget unzip tar strace mono-complete xterm gettext-base jq netcat procps lib32gcc-s1 locales && apt-get clean
 
-# Game + ModLoader 1.6.2 4.1.10
+# Game + ModLoader 1.6.15 4.3.2
 
 RUN mkdir -p ${GAME_PATH} && \
     mkdir -p /data/nexus && \
@@ -41,7 +41,7 @@ RUN wget -qO dotnet.tar.gz https://download.visualstudio.microsoft.com/download/
      ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
 # Download SMAPI installer for runtime installation
-RUN wget --user-agent="Mozilla" https://github.com/Pathoschild/SMAPI/releases/download/4.1.10/SMAPI-4.1.10-installer.zip -qO /data/nexus.zip && \
+RUN wget --user-agent="Mozilla" https://github.com/Pathoschild/SMAPI/releases/download/4.3.2/SMAPI-4.3.2-installer.zip -qO /data/nexus.zip && \
     unzip /data/nexus.zip -d /data/nexus/
 
 # Add Mods & Scripts (stored as templates for runtime deployment)

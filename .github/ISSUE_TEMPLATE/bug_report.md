@@ -6,6 +6,7 @@ labels: bug
 assignees: norimicry
 
 ---
+**Bug reports for mods will be closed immediately, as that is outside the scope of this project. See the documentation on the respective mod.**
 
 **Failure to answer these questions may result in your issue being dismissed as proper assistance may not be able to be provided.**
 
