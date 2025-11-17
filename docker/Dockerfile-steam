@@ -11,8 +11,9 @@ ENV GAME_PATH="/data/Stardew/game"
 
 ## lib32gcc-s1 is required for steamcmd
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-    wget unzip tar strace mono-complete xterm gettext-base jq netcat-openbsd procps lib32gcc-s1 locales && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    wget unzip tar strace xterm gettext-base jq netcat-openbsd procps lib32gcc-s1 locales && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y mono-complete && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
