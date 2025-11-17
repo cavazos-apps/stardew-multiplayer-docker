@@ -42,7 +42,7 @@ RUN chown -R 1000:1000 /data && \
 
 # Download SMAPI installer for runtime installation
 RUN wget --user-agent="Mozilla" https://github.com/Pathoschild/SMAPI/releases/download/4.3.2/SMAPI-4.3.2-installer.zip -qO /data/nexus.zip && \
-    unzip /data/nexus.zip -d /data/nexus/
+    unzip -o /data/nexus.zip -d /data/nexus/
 
 # Add Mods & Scripts (stored as templates for runtime deployment)
 COPY ["docker/mods/", "/data/Stardew/mods_template/"]
