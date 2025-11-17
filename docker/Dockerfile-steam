@@ -40,12 +40,6 @@ RUN chown -R 1000:1000 /data && \
     mkdir -p /data/.steam/sdk32 /data/.steam/sdk64
 ## END STEAM VERSION
 
-RUN mkdir -p /usr/share/dotnet && \
-    wget -qO dotnet.tar.gz https://download.visualstudio.microsoft.com/download/pr/7bc2f0a5-f0c1-4b6e-9e49-0ee13d9ddc85/d77e63c36d01bc0ae72ee54cf40c74c1/dotnet-sdk-5.0.408-linux-x64.tar.gz && \
-    tar -zxf dotnet.tar.gz -C /usr/share/dotnet && \
-    rm dotnet.tar.gz && \
-    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
-
 # Download SMAPI installer for runtime installation
 RUN wget --user-agent="Mozilla" https://github.com/Pathoschild/SMAPI/releases/download/4.3.2/SMAPI-4.3.2-installer.zip -qO /data/nexus.zip && \
     unzip /data/nexus.zip -d /data/nexus/
