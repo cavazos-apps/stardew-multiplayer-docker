@@ -1,5 +1,5 @@
 # Pull base image.
-FROM jlesage/baseimage-gui:debian-11
+FROM jlesage/baseimage-gui:debian-12
 
 # Steam appId - can be overridden at runtime
 ENV SRCDS_APPID=413150
@@ -10,7 +10,11 @@ ENV APP_NAME="StardewValley"
 ENV GAME_PATH="/data/Stardew/game"
 
 ## lib32gcc-s1 is required for steamcmd
-RUN apt-get update && apt-get install -y wget unzip tar strace mono-complete xterm gettext-base jq netcat procps lib32gcc-s1 locales && apt-get clean
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+    wget unzip tar strace mono-complete xterm gettext-base jq netcat-openbsd procps lib32gcc-s1 locales && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Game + ModLoader 1.6.15 4.3.2
 
@@ -35,10 +39,11 @@ RUN chown -R 1000:1000 /data && \
     mkdir -p /data/.steam/sdk32 /data/.steam/sdk64
 ## END STEAM VERSION
 
-RUN wget -qO dotnet.tar.gz https://download.visualstudio.microsoft.com/download/pr/d4b71fac-a2fd-4516-ac58-100fb09d796a/e79d6c2a8040b59bf49c0d167ae70a7b/dotnet-sdk-5.0.408-linux-arm64.tar.gz &&\
-     tar -zxf dotnet.tar.gz -C /usr/share/dotnet &&\
-     rm dotnet.tar.gz &&\
-     ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
+RUN mkdir -p /usr/share/dotnet && \
+    wget -qO dotnet.tar.gz https://download.visualstudio.microsoft.com/download/pr/7bc2f0a5-f0c1-4b6e-9e49-0ee13d9ddc85/d77e63c36d01bc0ae72ee54cf40c74c1/dotnet-sdk-5.0.408-linux-x64.tar.gz && \
+    tar -zxf dotnet.tar.gz -C /usr/share/dotnet && \
+    rm dotnet.tar.gz && \
+    ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet
 
 # Download SMAPI installer for runtime installation
 RUN wget --user-agent="Mozilla" https://github.com/Pathoschild/SMAPI/releases/download/4.3.2/SMAPI-4.3.2-installer.zip -qO /data/nexus.zip && \
