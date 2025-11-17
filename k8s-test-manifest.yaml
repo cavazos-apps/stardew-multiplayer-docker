@@ -5,49 +5,6 @@ metadata:
   name: stardew-test
 
 ---
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  name: stardew-data
-  namespace: stardew-test
-spec:
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 10Gi
-  # Optional: specify storageClassName if you have a specific storage class
-  # storageClassName: local-path
-
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: stardew-config
-  namespace: stardew-test
-data:
-  # Steam credentials (replace with your actual credentials or use secrets)
-  STEAM_USER: "your_steam_username"
-  # VNC settings
-  VNC_PASSWORD: "changeme"
-  DISPLAY_WIDTH: "1280"
-  DISPLAY_HEIGHT: "720"
-  # Game settings
-  GAME_PORT: "24642"
-
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: stardew-secrets
-  namespace: stardew-test
-type: Opaque
-stringData:
-  # IMPORTANT: Replace with your actual Steam password
-  # Or better yet, create this secret separately with: kubectl create secret generic stardew-secrets --from-literal=steam-password='your_password' -n stardew-test
-  steam-password: "your_steam_password_here"
-
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -65,11 +22,9 @@ spec:
       labels:
         app: stardew-server
     spec:
-      # Optional: Node selector for lagranx86
       nodeSelector:
         kubernetes.io/hostname: lagranx86
 
-      # Optional: Toleration for disk pressure
       tolerations:
       - key: "node.kubernetes.io/disk-pressure"
         operator: "Exists"
@@ -92,31 +47,19 @@ spec:
           protocol: TCP
 
         env:
+        # Replace with your Steam credentials
         - name: STEAM_USER
-          valueFrom:
-            configMapKeyRef:
-              name: stardew-config
-              key: STEAM_USER
+          value: "YOUR_STEAM_USERNAME_HERE"
         - name: STEAM_PASS
-          valueFrom:
-            secretKeyRef:
-              name: stardew-secrets
-              key: steam-password
+          value: "YOUR_STEAM_PASSWORD_HERE"
+        # VNC password for web interface
         - name: VNC_PASSWORD
-          valueFrom:
-            configMapKeyRef:
-              name: stardew-config
-              key: VNC_PASSWORD
+          value: "changeme"
+        # Display settings
         - name: DISPLAY_WIDTH
-          valueFrom:
-            configMapKeyRef:
-              name: stardew-config
-              key: DISPLAY_WIDTH
+          value: "1280"
         - name: DISPLAY_HEIGHT
-          valueFrom:
-            configMapKeyRef:
-              name: stardew-config
-              key: DISPLAY_HEIGHT
+          value: "720"
 
         volumeMounts:
         - name: game-data
@@ -132,8 +75,9 @@ spec:
 
       volumes:
       - name: game-data
-        persistentVolumeClaim:
-          claimName: stardew-data
+        hostPath:
+          path: /data/stardew-test
+          type: DirectoryOrCreate
 
 ---
 apiVersion: v1
@@ -152,15 +96,11 @@ spec:
     port: 24642
     targetPort: 24642
     protocol: UDP
-    # Optional: specify nodePort if you want a specific port
-    # nodePort: 30642
   - name: vnc-web
     port: 5800
     targetPort: 5800
     protocol: TCP
-    # nodePort: 30800
   - name: vnc
     port: 5900
     targetPort: 5900
     protocol: TCP
-    # nodePort: 30900
