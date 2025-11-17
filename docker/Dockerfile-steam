@@ -1,5 +1,5 @@
 # Pull base image.
-FROM jlesage/baseimage-gui:debian-12-v4
+FROM jlesage/baseimage-gui:debian-11
 
 # Steam appId - can be overridden at runtime
 ENV SRCDS_APPID=413150
