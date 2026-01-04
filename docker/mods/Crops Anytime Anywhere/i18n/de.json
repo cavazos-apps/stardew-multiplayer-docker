@@ -1,0 +1,29 @@
+﻿{
+    /*********
+    ** Generic Mod Config Menu UI
+    *********/
+    // warnings
+    "config.too-complex": "Du hast standortabhängige Einstellungen, die zu komplex sind, um sie über das allgemeine Mod-Konfigurationsmenü zu bearbeiten. Du kannst die config.json-Datei des Mods direkt bearbeiten oder die Mod-Einstellungen auf die Standardeinstellungen zurücksetzen (indem du auf die Schaltflächen „Standard“ und „Speichern“ klickst und dann das Spiel neu öffnest).",
+
+    // options
+    "config.grow-crops.name": "Nutzpflanzen überall anbauen",
+    "config.grow-crops.desc": "Ob Nutzpflanzen an allen Standorten gepflanzt werden können.",
+
+    "config.grow-crops-out-of-season.name": "Heranwachsen von Nutzpflanzen zu jeder Jahreszeit",
+    "config.grow-crops-out-of-season.desc": "Ob Nutzpflanzen wachsen, auch wenn sie normalerweise nicht in der Saison sind. Dies gilt nur, wenn „Nutzpflanzen überall anbauen“ ebenfalls aktiviert ist.",
+
+    "config.use-fruit-trees-seasonal-sprites.name": "Saisonale Obstbaum-Sprites",
+    "config.use-fruit-trees-seasonal-sprites.desc": "Ob Obstbäume ihre normalen saisonalen Sprites (true) oder ihre Sommer-Sprites (false) verwenden sollen, wenn „Heranwachsen von Nutzpflanzen zu jeder Jahreszeit“ aktiviert ist.",
+
+    "config.force-till-dirt.name": "Hacke jegliche Erde",
+    "config.force-till-dirt.desc": "Ob alle Erdkacheln mit einer Hacke bearbeitbar sein sollten, auch wenn sie dies normalerweise nicht wären.",
+
+    "config.force-till-grass.name": "Hacke jegliches Gras",
+    "config.force-till-grass.desc": "Ob alle Graskacheln mit einer Hacke bearbeitbar sein sollten, auch wenn sie dies normalerweise nicht wären.",
+
+    "config.force-till-stone.name": "Hacke jegliche Steine",
+    "config.force-till-stone.desc": "Ob alle Steinkacheln mit einer Hacke bearbeitbar sein sollten, auch wenn sie dies normalerweise nicht wären.",
+
+    "config.force-till-other.name": "Jegliche andere Kachel hacken",
+    "config.force-till-other.desc": "Ob alle Kacheln, die nicht als Erde, Gras oder Stein gekennzeichnet sind, mit einer Hacke bearbeitbar sein sollten, auch wenn sie es normalerweise nicht wären."
+}

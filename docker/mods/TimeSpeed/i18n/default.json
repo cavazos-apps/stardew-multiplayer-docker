@@ -5,7 +5,7 @@
     // changed manually
     "message.config-reloaded": "Time feels differently now...",
     "message.speed-changed": "10 minutes feels like {{seconds}} seconds.",
-    "message.time-stopped": "Hey, you stopped the time!",
+    "message.time-stopped": "Time has stopped...",
     "message.time-resumed": "Time feels as usual now...",
 
     // changed based on time
@@ -16,10 +16,17 @@
     "message.on-location-change.time-stopped-here": "It feels like time is frozen here...",
     "message.on-location-change.time-speed-here": "10 minutes feels more like {{seconds}} seconds here...",
 
+    // multiplayer messages
+    "message.host-missing-mod": "You can't change time because the main player doesn't have TimeSpeed installed.",
+    "message.host-access-denied": "You can't change time because the main player doesn't allow that.",
+
 
     /*********
     ** Generic Mod Config Menu UI
     *********/
+    // warnings
+    "config.farmhand-warning": "The host player's options apply for this save. You can still edit the options below, but only the controls will do anything as a farmhand.",
+
     // general options
     "config.general-options": "General options",
     "config.enable-on-festival-days.name": "Enable on festival days",
@@ -44,6 +51,8 @@
     "config.freeze-time": "Freeze time",
     "config.anywhere-at-time.name": "Freeze time at",
     "config.anywhere-at-time.desc": "The time at which to freeze time everywhere. This should be 24-hour military time, from 600 (6am) to 2400 (midnight) and 2600 (2am). You can set it to 2600 to disable it.",
+    "config.freeze-before-passing-out.name": "Freeze time before 2am",
+    "config.freeze-before-passing-out.desc": "Whether to freeze time everywhere before players pass out (i.e. at 1:50am). This is in addition to the '{{freezeTimeAt}}' option.",
     "config.freeze-time-indoors.name": "Indoors",
     "config.freeze-time-indoors.desc": "Whether to freeze time while indoors.",
     "config.freeze-time-outdoors.name": "Outdoors",
@@ -58,6 +67,11 @@
     "config.freeze-time-freeze-names.desc": "The names of specific locations in which to freeze time. Location names can be seen in-game using the Debug Mode mod. You can list multiple with commas.",
     "config.freeze-time-dont-freeze-names.name": "Don't freeze location names",
     "config.freeze-time-dont-freeze-names.desc": "The names of specific locations in which time shouldn't be frozen, regardless of the previous settings. Location names can be seen in-game using the Debug Mode mod. You can list multiple with commas.",
+
+    // multiplayer options
+    "config.multiplayer": "Multiplayer",
+    "config.let-farmhands-manage-time.name": "Let farmhands manage time",
+    "config.let-farmhands-manage-time.description": "When you're hosting a save in multiplayer mode, whether other players can freeze or change the time speed if they have the mod installed too.",
 
     // controls
     "config.controls": "Controls",

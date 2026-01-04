@@ -1,0 +1,29 @@
+﻿{
+    /*********
+    ** Generic Mod Config Menu UI
+    *********/
+    // warnings
+    "config.too-complex": "You have per-location settings, which are too complex to edit through Generic Mod Config Menu. You can edit the mod's config.json file directly, or reset the mod settings to default (by clicking the 'Default' and 'Save' buttons, then reopening the game).",
+
+    // options
+    "config.grow-crops.name": "Grow crops anywhere",
+    "config.grow-crops.desc": "Whether crops can be planted and grown in all locations.",
+
+    "config.grow-crops-out-of-season.name": "Grow crops in any season",
+    "config.grow-crops-out-of-season.desc": "Whether crops grow even if they'd normally be out of season. This only applies if 'grow crops anywhere' is also enabled.",
+
+    "config.use-fruit-trees-seasonal-sprites.name": "Seasonal fruit trees sprites",
+    "config.use-fruit-trees-seasonal-sprites.desc": "Whether fruit trees should use their normal seasonal sprite (true) or their summer sprites (false) when 'grow crops in any season' is enabled.",
+
+    "config.force-till-dirt.name": "Hoe any dirt",
+    "config.force-till-dirt.desc": "Whether all dirt tiles should be tillable with a hoe, even if they normally wouldn't be.",
+
+    "config.force-till-grass.name": "Hoe any grass",
+    "config.force-till-grass.desc": "Whether all grass tiles should be tillable with a hoe, even if they normally wouldn't be.",
+
+    "config.force-till-stone.name": "Hoe any stone",
+    "config.force-till-stone.desc": "Whether all stone tiles should be tillable with a hoe, even if they normally wouldn't be.",
+
+    "config.force-till-other.name": "Hoe any other tile",
+    "config.force-till-other.desc": "Whether all tiles that aren't marked as dirt, grass, or stone should be tillable with a hoe, even if they normally wouldn't be."
+}

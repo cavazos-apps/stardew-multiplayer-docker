@@ -1,0 +1,88 @@
+﻿{
+    /*********
+    ** In-game messages
+    *********/
+    // changed manually
+    "message.config-reloaded": "時の流れが変わった…",
+    "message.speed-changed": "10分が{{seconds}}秒に感じます。",
+    "message.time-stopped": "Time has stopped...", // TODO
+    "message.time-resumed": "今はいつも通りの時間が流れている…",
+
+    // changed based on time
+    "message.on-time-change.time-stopped": "急に時間が止まった…",
+
+    // changed based on location
+    "message.on-location-change.time-stopped-globally": "どこもかしこも時間が止まっているようだ…",
+    "message.on-location-change.time-stopped-here": "ここはまるで時間が凍っているようだ…",
+    "message.on-location-change.time-speed-here": "ここでは10分が{{seconds}}秒のように感じる…",
+
+    // multiplayer messages
+    // TODO
+    "message.host-missing-mod": "You can't change time because the main player doesn't have TimeSpeed installed.",
+    "message.host-access-denied": "You can't change time because the main player doesn't allow that.",
+
+
+    /*********
+    ** Generic Mod Config Menu UI
+    *********/
+    // warnings
+    "config.farmhand-warning": "The host player's options apply for this save. You can still edit the options below, but only the controls will do anything as a farmhand.", // TODO
+
+    // general options
+    "config.general-options": "一般設定",
+    "config.enable-on-festival-days.name": "お祭りの開催日でも有効にする",
+    "config.enable-on-festival-days.desc": "お祭りの日でも時間の長さを変えるかどうか。",
+    "config.location-notify.name": "ワープ時に時間情報を表示",
+    "config.location-notify.desc": "場所が変わった際に時間設定に関するメッセージを表示するかどうか。",
+
+    // seconds per minute section
+    "config.seconds-per-minute": "分ごとの秒数",
+    "config.indoors-speed.name": "屋内",
+    "config.indoors-speed.desc": "屋内に居る際のゲーム内1分間の秒数。",
+    "config.outdoors-speed.name": "屋外",
+    "config.outdoors-speed.desc": "屋外に居る際のゲーム内1分間の秒数。",
+    "config.mine-speed.name": "鉱山",
+    "config.mine-speed.desc": "鉱山に居る際のゲーム内1分間の秒数",
+    "config.skull-cavern-speed.name": "ドクロ洞窟",
+    "config.skull-cavern-speed.desc": "ドクロ洞窟に居る際のゲーム内1分間の秒数",
+    "config.volcano-dungeon-speed.name": "火山ダンジョン",
+    "config.volcano-dungeon-speed.desc": "火山ダンジョンに居る際のゲーム内1分間の秒数",
+
+    // freeze time section
+    "config.freeze-time": "時間の停止",
+    "config.anywhere-at-time.name": "停止する時刻",
+    "config.anywhere-at-time.desc": "あらゆる場所で時間を止める時刻。600(午前6時)から2400(午前0時)、2600(午前2時)までの24時間のミリタリータイムでなければならない。2600に設定すると無効になる。",
+    "config.freeze-before-passing-out.name": "Freeze time before 2am", // TODO
+    "config.freeze-before-passing-out.desc": "Whether to freeze time everywhere before players pass out (i.e. at 1:50am). This is in addition to the '{{freezeTimeAt}}' option.", // TODO
+    "config.freeze-time-indoors.name": "屋内",
+    "config.freeze-time-indoors.desc": "屋内で時間を止めるかどうか。",
+    "config.freeze-time-outdoors.name": "屋外",
+    "config.freeze-time-outdoors.desc": "屋外で時間を止めるかどうか。",
+    "config.freeze-time-mine.name": "鉱山",
+    "config.freeze-time-mine.desc": "鉱山で時間を止めるかどうか。",
+    "config.freeze-time-skull-cavern.name": "ドクロ洞窟",
+    "config.freeze-time-skull-cavern.desc": "ドクロ洞窟で時間を止めるかどうか。",
+    "config.freeze-time-volcano-dungeon.name": "火山ダンジョン",
+    "config.freeze-time-volcano-dungeon.desc": "火山ダンジョンで時間を止めるかどうか。",
+    "config.freeze-time-freeze-names.name": "停止する場所の名前",
+    "config.freeze-time-freeze-names.desc": "時間を停止させる特定の場所の名前。場所名はDebug Mode MODを使いゲーム内で確認できる。カンマで区切って複数指定できる。",
+    "config.freeze-time-dont-freeze-names.name": "停止させない場所の名前",
+    "config.freeze-time-dont-freeze-names.desc": "上記の設定に関係なく時間を止めない特定の場所の名前。場所名はDebug Mode MODを使いゲーム内で確認できる。カンマで区切って複数指定できる。",
+
+    // multiplayer options
+    // TODO
+    "config.multiplayer": "Multiplayer",
+    "config.let-farmhands-manage-time.name": "Let farmhands manage time",
+    "config.let-farmhands-manage-time.description": "When you're hosting a save in multiplayer mode, whether other players can freeze or change the time speed if they have the mod installed too.",
+
+    // controls
+    "config.controls": "操作",
+    "config.freeze-time-key.name": "時間停止",
+    "config.freeze-time-key.desc": "時間を停止または解除するキー。停止は解除するまで有効で、解除は時間設定のある別の場所に入るまで有効。",
+    "config.slow-time-key.name": "時間を遅らせる",
+    "config.slow-time-key.desc": "ゲーム内10分ごとに1秒ずつ時間を遅くするキー。Ctrlキーと合わせると100秒ずつ、Shiftと合わせると10秒ずつ、Altと合わせると0.1秒ずつ。",
+    "config.speed-up-time-key.name": "時間を早める",
+    "config.speed-up-time-key.desc": "ゲーム内10分ごとに1秒ずつ時間を早めるするキー。Ctrlキーと合わせると100秒ずつ、Shiftと合わせると10秒ずつ、Altと合わせると0.1秒ずつ。",
+    "config.reload-key.name": "設定のリロード",
+    "config.reload-key.desc": "設定ファイルからすべての値を再読み込みし即座に適用するキー。ホットキーで停止していた場合、時間は停止したままになる。"
+}

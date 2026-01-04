@@ -5,7 +5,7 @@
     // changed manually
     "message.config-reloaded": "Die Zeit fühlt sich jetzt anders an...",
     "message.speed-changed": "10 Minuten fühlen sich nun wie {{seconds}} Sekunden an.",
-    "message.time-stopped": "Hey, du hast die Zeit gestoppt!!",
+    "message.time-stopped": "Time has stopped...", // TODO
     "message.time-resumed": "Die Zeit fühlt sich wieder normal an...",
 
     // changed based on time
@@ -16,10 +16,18 @@
     "message.on-location-change.time-stopped-here": "Sieht so aus, als ob die Zeit hier stehen geblieben ist...",
     "message.on-location-change.time-speed-here": "10 Minuten fühlen sich wie {{seconds}} Sekunden hier an...",
 
+    // multiplayer messages
+    // TODO
+    "message.host-missing-mod": "You can't change time because the main player doesn't have TimeSpeed installed.",
+    "message.host-access-denied": "You can't change time because the main player doesn't allow that.",
+
 
     /*********
     ** Generic Mod Config Menu UI
     *********/
+    // warnings
+    "config.farmhand-warning": "The host player's options apply for this save. You can still edit the options below, but only the controls will do anything as a farmhand.", // TODO
+
     // general options
     "config.general-options": "Allgemeine Optionen",
     "config.enable-on-festival-days.name": "Aktiviert an Festivaltagen",
@@ -44,6 +52,8 @@
     "config.freeze-time": "Zeit Einfrier Optionen",
     "config.anywhere-at-time.name": "Zeit einfrieren bei",
     "config.anywhere-at-time.desc": "Die Zeit, zu der die Zeit überall eingefroren werden soll. (6 Uhr morgens) 600 bis 2400 (Mitternacht) und 2600 (2 Uhr morgens). Du kannst es auf 2600 einstellen, um es zu deaktivieren.",
+    "config.freeze-before-passing-out.name": "Freeze time before 2am", // TODO
+    "config.freeze-before-passing-out.desc": "Whether to freeze time everywhere before players pass out (i.e. at 1:50am). This is in addition to the '{{freezeTimeAt}}' option.", // TODO
     "config.freeze-time-indoors.name": "Drinnen",
     "config.freeze-time-indoors.desc": "Ob die Zeit in Häusern eingefroren werden soll.",
     "config.freeze-time-outdoors.name": "Draussen",
@@ -58,6 +68,12 @@
     "config.freeze-time-freeze-names.desc": "Die Namen bestimmter Orte, an denen die Zeit eingefroren werden soll. Standortnamen können im Spiel mit dem Debug-Modus-Mod angezeigt werden. Du kannst mehrere mit Kommas auflisten.",
     "config.freeze-time-dont-freeze-names.name": "Bestimmte Orte Zeit nicht einfrieren",
     "config.freeze-time-dont-freeze-names.desc": "Die Namen bestimmter Orte, an denen die Zeit nicht eingefroren werden soll, unabhängig von den vorherigen Einstellungen. Standortnamen können im Spiel mit dem Debug-Modus-Mod angezeigt werden. Du kannst mehrere mit Kommas auflisten.",
+
+    // multiplayer options
+    // TODO
+    "config.multiplayer": "Multiplayer",
+    "config.let-farmhands-manage-time.name": "Let farmhands manage time",
+    "config.let-farmhands-manage-time.description": "When you're hosting a save in multiplayer mode, whether other players can freeze or change the time speed if they have the mod installed too.",
 
     // controls
     "config.controls": "Steuerungs Optionen",

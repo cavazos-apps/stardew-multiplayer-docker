@@ -5,7 +5,7 @@
     // changed manually
     "message.config-reloaded": "지금은 시간이 다르게 느껴집니다.",
     "message.speed-changed": "10분이 {{seconds}}초처럼 느껴집니다.",
-    "message.time-stopped": "시간을 멈췄습니다.",
+    "message.time-stopped": "Time has stopped...", // TODO
     "message.time-resumed": "이제 시간이 평소와 같이 느껴집니다.",
 
     // changed based on time
@@ -16,10 +16,18 @@
     "message.on-location-change.time-stopped-here": "여기 시간이 멈췄습니다",
     "message.on-location-change.time-speed-here": "여기서 10분이 {{seconds}}초처럼 느껴집니다.",
 
+    // multiplayer messages
+    // TODO
+    "message.host-missing-mod": "You can't change time because the main player doesn't have TimeSpeed installed.",
+    "message.host-access-denied": "You can't change time because the main player doesn't allow that.",
+
 
     /*********
     ** Generic Mod Config Menu UI
     *********/
+    // warnings
+    "config.farmhand-warning": "The host player's options apply for this save. You can still edit the options below, but only the controls will do anything as a farmhand.", // TODO
+
     // general options
     "config.general-options": "일반 옵션",
     "config.enable-on-festival-days.name": "축제일 활성화",
@@ -44,6 +52,8 @@
     "config.freeze-time": "정지 시간",
     "config.anywhere-at-time.name": "시간 고정",
     "config.anywhere-at-time.desc": "모든 곳에서 시간을 고정할 시간입니다. 이것은 600(오전 6시)에서 2400(자정) 및 2600(오전 2시)까지의 24시간 군사 시간이어야 합니다. 다음을 설정할 수 있습니다. 비활성화하려면 2600으로 설정하십시오.",
+    "config.freeze-before-passing-out.name": "Freeze time before 2am", // TODO
+    "config.freeze-before-passing-out.desc": "Whether to freeze time everywhere before players pass out (i.e. at 1:50am). This is in addition to the '{{freezeTimeAt}}' option.", // TODO
     "config.freeze-time-indoors.name": "실내",
     "config.freeze-time-indoors.desc": "실내에서 시간을 정지할지 여부.",
     "config.freeze-time-outdoors.name": "야외",
@@ -58,6 +68,12 @@
     "config.freeze-time-freeze-names.desc": "시간을 고정할 특정 위치의 이름입니다. 위치 이름은 디버그 모드 모드를 사용하여 게임 내에서 볼 수 있습니다. 여러 개를 쉼표로 나열할 수 있습니다.",
     "config.freeze-time-dont-freeze-names.name": "위치 이름을 고정하지 않음",
     "config.freeze-time-dont-freeze-names.desc": "이전 설정에 관계없이 시간이 고정되어서는 안 되는 특정 위치의 이름입니다. 위치 이름은 디버그 모드 모드를 사용하여 게임 내에서 볼 수 있습니다. 여러 개를 쉼표로 나열할 수 있습니다.",
+
+    // multiplayer options
+    // TODO
+    "config.multiplayer": "Multiplayer",
+    "config.let-farmhands-manage-time.name": "Let farmhands manage time",
+    "config.let-farmhands-manage-time.description": "When you're hosting a save in multiplayer mode, whether other players can freeze or change the time speed if they have the mod installed too.",
 
     // controls
     "config.controls": "컨트롤",

@@ -1,0 +1,29 @@
+﻿{
+    /*********
+    ** Generic Mod Config Menu UI
+    *********/
+    // warnings
+    "config.too-complex": "Le impostazioni per località sono troppo complesse per essere modificate attraverso il menu generico di configurazione della mod. È possibile modificare direttamente il file config.json della mod o ripristinare le impostazioni predefinite della mod (facendo clic sui pulsanti 'Predefinito' e 'Salva', quindi riaprendo il gioco).",
+
+    // options
+    "config.grow-crops.name": "Coltiva ovunque",
+    "config.grow-crops.desc": "Scegli se le colture possono essere piantate e coltivate ovunque.",
+
+    "config.grow-crops-out-of-season.name": "Coltiva in qualsiasi stagione",
+    "config.grow-crops-out-of-season.desc": "Scegli se le colture crescono anche se normalmente sono fuori stagione. Si applica solo se è abilitata anche l'opzione 'Coltiva ovunque'.",
+
+    "config.use-fruit-trees-seasonal-sprites.name": "Sprite stagionali per alberi da frutto",
+    "config.use-fruit-trees-seasonal-sprites.desc": "Scegli se gli alberi da frutto devono usare il loro normale sprite stagionale (true) o il loro sprite estivo (false) quando è abilitata l'opzione 'Coltiva in qualsiasi stagione'.",
+
+    "config.force-till-dirt.name": "Zappa qualsiasi terriccio",
+    "config.force-till-dirt.desc": "Scegli se tutte le caselle di terriccio possono essere coltivabili con una zappa, anche se normalmente non lo sarebbero.",
+
+    "config.force-till-grass.name": "Zappa qualsiasi erba",
+    "config.force-till-grass.desc": "Scegli se tutte le caselle erbose possono essere coltivabili con una zappa, anche se normalmente non lo sarebbero.",
+
+    "config.force-till-stone.name": "Zappa qualsiasi pietra",
+    "config.force-till-stone.desc": "Scegli se tutte le caselle di pietra possono essere coltivabili con una zappa, anche se normalmente non lo sarebbero.",
+
+    "config.force-till-other.name": "Zappa qualsiasi altra casella",
+    "config.force-till-other.desc": "Scegli se tutte le caselle che non sono contrassegnate come terra, erba o pietra possono essere coltivabili con una zappa, anche se normalmente non lo sarebbero."
+}

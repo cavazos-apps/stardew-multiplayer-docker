@@ -1,0 +1,29 @@
+﻿{
+    /*********
+    ** Generic Mod Config Menu UI
+    *********/
+    // warnings
+    "config.too-complex": "你可以单独对每个地点进行设置，但是这些设置过于复杂，无法通过通用模块配置菜单进行设置。你可以直接编辑模组的config.json文件，或将模组设置重置为默认值（点击“默认”和“保存”按钮，然后重新打开游戏）。",
+
+    // options
+    "config.grow-crops.name": "随处种植作物",
+    "config.grow-crops.desc": "作物是否可以在所有地点种植和生长。",
+
+    "config.grow-crops-out-of-season.name": "随时种植作物",
+    "config.grow-crops-out-of-season.desc": "作物是否可以在任何季节种植和生产。只有当“随处种植作物”启用时，该选项才会生效。",
+
+    "config.use-fruit-trees-seasonal-sprites.name": "季节性的果树外观",
+    "config.use-fruit-trees-seasonal-sprites.desc": "当“随时种植作物”启用时，果树的外观随季节变化（是），或一直保持夏季外观（否）。",
+
+    "config.force-till-dirt.name": "耕种所有土地瓦片",
+    "config.force-till-dirt.desc": "是否所有的土地瓦片都可以用锄头耕种，即使它们正常不能耕种。",
+
+    "config.force-till-grass.name": "耕种所有草地瓦片",
+    "config.force-till-grass.desc": "是否所有的草地瓦片都可以用锄头耕种，即使它们正常不能耕种。",
+
+    "config.force-till-stone.name": "耕种所有石头瓦片",
+    "config.force-till-stone.desc": "是否所有的石头瓦片都可以用锄头耕种，即使它们正常不能耕种。",
+
+    "config.force-till-other.name": "跟着所有其他瓦片",
+    "config.force-till-other.desc": "是否所有没有标记为土地、草地或石头的瓦片都可以用锄头耕种，即使它们正常不能耕种。"
+}

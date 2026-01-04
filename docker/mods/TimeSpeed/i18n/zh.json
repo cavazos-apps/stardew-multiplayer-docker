@@ -3,10 +3,10 @@
     ** In-game messages
     *********/
     // changed manually
-    "message.config-reloaded": "时间流动变得不同了...",
-    "message.speed-changed": "10分钟感觉就像 {{seconds}} 秒。",
-    "message.time-stopped": "嘿，你冻结了时间!",
-    "message.time-resumed": "时间像往常一样重新流动...",
+    "message.config-reloaded": "时间流逝变得不同了...",
+    "message.speed-changed": "10分钟感觉就像{{seconds}}秒。",
+    "message.time-stopped": "Time has stopped...", // TODO
+    "message.time-resumed": "时间像往常一样重新流逝...",
 
     // changed based on time
     "message.on-time-change.time-stopped": "时间突然停止...",
@@ -14,59 +14,75 @@
     // changed based on location
     "message.on-location-change.time-stopped-globally": "无论在哪时间都停止...",
     "message.on-location-change.time-stopped-here": "在这里时间似乎停止了...",
-    "message.on-location-change.time-speed-here": "这里10分钟感觉就像{{seconds}} 秒钟...",
+    "message.on-location-change.time-speed-here": "在这里10分钟感觉就像{{seconds}}秒钟...",
+
+    // multiplayer messages
+    // TODO
+    "message.host-missing-mod": "You can't change time because the main player doesn't have TimeSpeed installed.",
+    "message.host-access-denied": "You can't change time because the main player doesn't allow that.",
 
 
     /*********
     ** Generic Mod Config Menu UI
     *********/
+    // warnings
+    "config.farmhand-warning": "The host player's options apply for this save. You can still edit the options below, but only the controls will do anything as a farmhand.", // TODO
+
     // general options
-    "config.general-options": "通常设置",
-    "config.enable-on-festival-days.name": "节日当天启用",
-    "config.enable-on-festival-days.desc": "节日时修改时间长短",
+    "config.general-options": "常规设置",
+    "config.enable-on-festival-days.name": "在节日时启用",
+    "config.enable-on-festival-days.desc": "是否在节日时修改时间流逝规则。",
     "config.location-notify.name": "显示时间信息",
-    "config.location-notify.desc": "是否在进入不同区域时显示时间相关信息",
+    "config.location-notify.desc": "是否在进入不同区域时显示时间相关信息。",
 
     // seconds per minute section
-    "config.seconds-per-minute": "分钟拆分为秒数",
+    "config.seconds-per-minute": "每分钟相当于多少秒",
     "config.indoors-speed.name": "建筑内",
-    "config.indoors-speed.desc": "建筑里一分钟有多少秒",
-    "config.outdoors-speed.name": "室外",
-    "config.outdoors-speed.desc": "室外一分钟有多少秒",
-    "config.mine-speed.name": "矿洞",
-    "config.mine-speed.desc": "矿洞里一分钟有多少秒",
-    "config.skull-cavern-speed.name": "头骨矿洞",
-    "config.skull-cavern-speed.desc": "头骨矿洞里一分钟有多少秒",
+    "config.indoors-speed.desc": "建筑内的1分钟相当于现实中的多少秒。",
+    "config.outdoors-speed.name": "建筑外",
+    "config.outdoors-speed.desc": "建筑外的1分钟相当于现实中的多少秒。",
+    "config.mine-speed.name": "矿井",
+    "config.mine-speed.desc": "矿井里的1分钟相当于现实中的多少秒。",
+    "config.skull-cavern-speed.name": "骷髅洞穴",
+    "config.skull-cavern-speed.desc": "骷髅洞穴里的1分钟相当于现实中的多少秒。",
     "config.volcano-dungeon-speed.name": "火山地牢",
-    "config.volcano-dungeon-speed.desc": "火山地牢里一分钟有多少秒",
+    "config.volcano-dungeon-speed.desc": "火山地牢里的1分钟相当于现实中的多少秒。",
 
     // freeze time section
     "config.freeze-time": "冻结时间",
     "config.anywhere-at-time.name": "什么时候冻结",
-    "config.anywhere-at-time.desc": "设置自动冻结全地图时间的时间节点，600表示早上6点，2400表示凌晨2点，默认2400，表示禁用。",
+    "config.anywhere-at-time.desc": "设置自动冻结全地图时间的时间节点，采用24小时制，600表示早上6点，2400表示午夜12点，2600则表示凌晨2点。设置为2600则表示禁用。",
+    "config.freeze-before-passing-out.name": "Freeze time before 2am", // TODO
+    "config.freeze-before-passing-out.desc": "Whether to freeze time everywhere before players pass out (i.e. at 1:50am). This is in addition to the '{{freezeTimeAt}}' option.", // TODO
     "config.freeze-time-indoors.name": "建筑内",
-    "config.freeze-time-indoors.desc": "建筑内时是否冻结时间",
-    "config.freeze-time-outdoors.name": "室外",
-    "config.freeze-time-outdoors.desc": "在室外是否冻结时间",
-    "config.freeze-time-mine.name": "矿洞",
-    "config.freeze-time-mine.desc": "在矿洞时冻结时间",
-    "config.freeze-time-skull-cavern.name": "头骨矿洞",
-    "config.freeze-time-skull-cavern.desc": "头骨矿洞里是否冻结时间",
+    "config.freeze-time-indoors.desc": "建筑内时是否冻结时间。",
+    "config.freeze-time-outdoors.name": "建筑",
+    "config.freeze-time-outdoors.desc": "建筑外是否冻结时间。",
+    "config.freeze-time-mine.name": "矿井",
+    "config.freeze-time-mine.desc": "位于矿井时是否冻结时间。",
+    "config.freeze-time-skull-cavern.name": "骷髅洞穴",
+    "config.freeze-time-skull-cavern.desc": "位于骷髅洞穴时是否冻结时间。",
     "config.freeze-time-volcano-dungeon.name": "火山地牢",
-    "config.freeze-time-volcano-dungeon.desc": "火山地牢里是否冻结时间",
+    "config.freeze-time-volcano-dungeon.desc": "位于火山地牢时是否冻结时间。",
     "config.freeze-time-freeze-names.name": "自定义冻结地点",
-    "config.freeze-time-freeze-names.desc": "自定义添加冻结时间的地点，可以添加多个，用逗号隔开，下载尾号679的mod在游戏内查看地点名称。",
+    "config.freeze-time-freeze-names.desc": "自定义添加冻结时间的地点，可以添加多个，用逗号隔开。下载尾号679的mod在游戏内查看地点名称。",
     "config.freeze-time-dont-freeze-names.name": "自定义不冻结地点",
-    "config.freeze-time-dont-freeze-names.desc": "自定义添加不冻结时间的地点，可以添加多个，用逗号隔开，下载尾号679的mod在游戏内查看地点名称。",
+    "config.freeze-time-dont-freeze-names.desc": "自定义添加不冻结时间的地点，可以添加多个，用逗号隔开。下载尾号679的mod在游戏内查看地点名称。",
+
+    // multiplayer options
+    // TODO
+    "config.multiplayer": "Multiplayer",
+    "config.let-farmhands-manage-time.name": "Let farmhands manage time",
+    "config.let-farmhands-manage-time.description": "When you're hosting a save in multiplayer mode, whether other players can freeze or change the time speed if they have the mod installed too.",
 
     // controls
-    "config.controls": "控制键",
+    "config.controls": "按键绑定",
     "config.freeze-time-key.name": "冻结时间",
-    "config.freeze-time-key.desc": "设置冻结时间快捷键，按一次永久冻结时间，不受其他设置影响。再按一次会取消冻结，此时可能会受到前面设置过的冻结时间区域的影响（如建筑内冻结等），即进入设置过冻结时间的区域会再次冻结时间。",
+    "config.freeze-time-key.desc": "冻结时间快捷键，按一次冻结时间，游戏时间将保持冻结直至你再次按下该按键。解除冻结后，当进入其他拥有时间流逝设置的区域时，时间流逝规则会遵循该区域内现有的设置。",
     "config.slow-time-key.name": "放慢时间快捷键",
-    "config.slow-time-key.desc": "按下快捷键，让游戏时间每十分钟慢上一秒，快捷键+CTRL，慢100秒，+shift，慢10秒，+Alt慢0.1秒。",
+    "config.slow-time-key.desc": "放慢时间流逝快捷键，让游戏时间里的10分钟慢1秒，快捷键+Ctrl，慢100秒，+Shift，慢10秒，+Alt慢0.1秒。",
     "config.speed-up-time-key.name": "加快时间",
-    "config.speed-up-time-key.desc": "加快时间流转快捷键，让游戏时间每十分钟快上一秒，快捷键+CTRL，快100秒，+shift，快10秒，+Alt快0.1秒。",
+    "config.speed-up-time-key.desc": "加快时间流逝快捷键，让游戏时间里的10分钟快1秒，快捷键+Ctrl，快100秒，+Shift，快10秒，+Alt快0.1秒。",
     "config.reload-key.name": "恢复默认设置",
-    "config.reload-key.desc": "恢复所有设置的快捷键。"
+    "config.reload-key.desc": "恢复所有设置为默认状态。"
 }
