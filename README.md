@@ -2,6 +2,11 @@
 
 This project aims to autostart a Stardew Valley Multiplayer Server as easy as possible.
 
+## Deprecated
+
+*Important*: I don't have time to maintain this project anymore, use: 
+https://github.com/stardew-valley-dedicated-server/server. I appreciate all the support.
+
 ## Notes
 
 - Previous versions provided game files to create the server with the Docker container. To respect ConcernedApe's work and follow
